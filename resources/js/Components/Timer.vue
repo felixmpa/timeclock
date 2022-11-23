@@ -1,10 +1,6 @@
 <script setup>
 import axios from 'axios';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import DropdownOption from '@/Components/DropdownLink.vue';
-
 </script>
 
 <script>
@@ -34,9 +30,9 @@ export default{
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.get('/api/time-tracker')
                 .then(response => {
-                    this.sec  = response.data.sec;
-                    this.min  = response.data.min;
                     this.hour = response.data.hour;
+                    this.min  = response.data.min;
+                    this.sec  = response.data.sec;
                     this.user = response.data.user;
                     this.intervalList = response.data.intervalList;
 

@@ -23,4 +23,6 @@ Route::middleware('auth:sanctum')->get('/time-tracker', [TimeTrackerController::
 Route::middleware('auth:sanctum')->post('/time-tracker', [TimeTrackerController::class, 'store']);
 Route::middleware('auth:sanctum')->put('/time-tracker/{id}', [TimeTrackerController::class, 'edit']);
 
+Route::middleware('auth:sanctum')->get('/report/time-tracker', [TimeTrackerController::class, 'report']);
+
 

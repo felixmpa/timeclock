@@ -24,4 +24,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/report', function () {
+    return Inertia::render('Report');
+})->middleware(['auth', 'verified'])->name('report');
+
+Route::middleware('auth:sanctum')->get('/report/time-tracker', [App\Http\Controllers\Api\TimeTrackerController::class, 'report']);
+
+
 require __DIR__.'/auth.php';
