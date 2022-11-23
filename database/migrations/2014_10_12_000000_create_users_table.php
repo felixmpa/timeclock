@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('identification')->nullable();
             $table->boolean('is_time_tracker_started')->default(0);
+            $table->integer('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

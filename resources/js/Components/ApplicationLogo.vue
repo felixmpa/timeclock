@@ -9,5 +9,5 @@ const source = computed(() => props.src
 
 </script>
 <template>
-    <img :src="source" class="w-15 h-15" />
+   
 </template>
