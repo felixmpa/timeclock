@@ -80,8 +80,8 @@ class TimeTrackerController extends Controller
     public function report(Request $request)
     {
         $today    = Carbon::now()->format('Y-m-d');
-        $fromDate = Carbon::now()->subDays(5)->format('Y-m-d');
-        $toDate   = $today;
+        $fromDate = $request->input('dateFrom') ?: Carbon::now()->subDays(1)->format('Y-m-d');
+        $toDate   = $request->input('dateTo') ?: $today;
         
         $usersGroupByDate   = TimeTracker::select('user_id','date')
                                         ->whereBetween('date', [$fromDate, $toDate])
