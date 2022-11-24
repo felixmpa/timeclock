@@ -85,7 +85,7 @@ class TimeTrackerController extends Controller
         
         $usersGroupByDate   = TimeTracker::select('user_id','date')->whereBetween('date', [$fromDate, $toDate]);
         
-        if(Auth::user()->role_id == User::AGENT) 
+        if( $request->user()->role_id == User::AGENT) 
             $usersGroupByDate   = $usersGroupByDate->where('user_id', $request->user()->id);
                       
         $usersGroupByDate   = $usersGroupByDate->groupBy(['user_id', 'date'])->get();
