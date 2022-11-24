@@ -84,9 +84,9 @@ class TimeTrackerController extends Controller
         $toDate   = $request->input('dateTo') ?: $today;
         
         $usersGroupByDate   = TimeTracker::select('user_id','date')->whereBetween('date', [$fromDate, $toDate]);
-        
-        if( $request->user()->role_id == User::AGENT) 
-            $usersGroupByDate   = $usersGroupByDate->where('user_id', $request->user()->id);
+                
+        if(Auth::user()->role_id === User::AGENT)
+            $usersGroupByDate   = $usersGroupByDate->where('user_id', Auth::user()->id);
                       
         $usersGroupByDate   = $usersGroupByDate->groupBy(['user_id', 'date'])->get();
 
@@ -133,7 +133,8 @@ class TimeTrackerController extends Controller
                     str_pad($interval[5], 2, "0", STR_PAD_LEFT)
                 ),
                 'initialTrack' => $trackers->first()->tracked_at,
-                'lastTrack'    => $lastTrack
+                'lastTrack'    => $lastTrack,
+                'requestedBy'   => [Auth::user()->id, Auth::user()->role_id]
             );
         }
         
