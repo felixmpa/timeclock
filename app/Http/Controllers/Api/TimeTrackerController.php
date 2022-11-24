@@ -83,10 +83,12 @@ class TimeTrackerController extends Controller
         $fromDate = $request->input('dateFrom') ?: Carbon::now()->subDays(1)->format('Y-m-d');
         $toDate   = $request->input('dateTo') ?: $today;
         
-        $usersGroupByDate   = TimeTracker::select('user_id','date')
-                                        ->whereBetween('date', [$fromDate, $toDate])
-                                        ->groupBy(['user_id', 'date'])
-                                        ->get();
+        $usersGroupByDate   = TimeTracker::select('user_id','date')->whereBetween('date', [$fromDate, $toDate]);
+        
+        if(Auth::user()->role_id == User::AGENT) 
+            $usersGroupByDate   = $usersGroupByDate->where('user_id', $request->user()->id);
+                      
+        $usersGroupByDate   = $usersGroupByDate->groupBy(['user_id', 'date'])->get();
 
         $data = [];
         
